@@ -1,0 +1,45 @@
+quantified_self_app: 2.0.0
+
+info:
+  title: quantified_self_app
+  description: api for QuatifiedSelf App
+
+paths:
+  /:
+    get: Returns signup page for users to create an account.
+    post: Checks if the signup details are valid, if yes, the user is added.
+  
+  /login:
+    get: Returns login page.
+    post: Checks if the credentials are valid, if yes, a token is generated and the user is redirected to dashboard.
+
+  /dashboard/{user_sno}:
+    get: Returns dashboard displaying all the user's trackers.
+
+  /dashboard/{user_sno}/create:
+    get: Gets the json from the request, checks if the tracker is already being used, if not, then it creates it.
+
+  /dashboard/{user_sno}/delete:
+    get: Gets json from the request, and deletes the tracker and every instance of it.
+
+  /view-tracker/{user_sno}/{tracker}:
+    get: Displays all the instances of particular trackers.
+  
+  /view-tracker/{user_sno}/{tracker}/create:
+    post: Gets json from the request, and logs the value of the tracker.
+
+  /update-tracker-instance/{tracker_sno}:
+    get: Returns a page to update a loggeg value.
+    post: Gets all the data from the form, updates it, and then redirects to the view-tracker page.
+
+  /view-tracker/{user_sno}/{tracker}/delete:
+    post: Deletes the logged value from the tracker.
+  
+  /view-report/{user_sno}/{tracker}:
+    get: Returns a report of the progress made by the users in that tracker.
+
+  /download-csv/{user_sno}/{tracker}:
+    get: Return the tracker values in a .csv file format.
+
+  /import-values/{user_sno}/{tracker}:
+    post: Reuests a .csv file from the user, reads it and logs the values in that specific tracker.

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block base %}
+
+<h1 style="margin-bottom: 3%; margin-top: 7%;" class="mx-auto text-center">SignUp</h1>
+<div style="margin-top: 3%;" class="mx-auto col-md-3 text-center">
+
+    <form action="/" method="POST">
+        <div style="width: 50%;"></div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+    <br>
+    <br>
+    <p>Already Signed Up? <a href="/login">Login</a></p>
+</div>
+{% endblock base %}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+
+{% block button %}
+<a href="/dashboard/{{user.sno}}?token={{token}}" class="btn btn-outline-dark btn-sm" type="submit">Home</a>
+{% endblock button %}
+
+
+{% block base %}
+<div style="margin-top: 5%;" class="container mx-auto text-center">
+
+    <h1>{{tracker}}</h1>
+    <br>
+
+    <div id="home">
+        <div style="width: 50%; margin-top: 5%; margin-bottom: 5%;" class="container mx-auto text-center">
+            <form @submit.prevent="createTrackerInstance">
+                <div style="width: 50%;"></div>
+                <h3>Log Values</h3>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="value" placeholder="Value"
+                        v-model="tracker_instance.value">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="note" placeholder="Note"
+                        v-model="tracker_instance.note">
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">Add</button>
+            </form>
+
+
+
+        </div>
+        {title}
+        <div v-if="tracker_instances.length===0">
+            <div class="alert alert-dark" role="alert">
+                No Trackers to show, log values now!
+            </div>
+            <div style="width: 50%; margin-top: 5%; margin-bottom: 5%;" class="container mx-auto text-center">
+                <form action="/import-values/{{user.sno}}/{{tracker}}?token={{token}}" method="POST"
+                    enctype=multipart/form-data>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Add values from a file.</label>
+                        <input class="form-control" type="file" id="file" name="file">
+                        <button class="btn btn-outline-primary btn-sm" style="margin-top: 2%;">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div v-else>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">TimeStamp</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <tr v-for="(i, index) in tracker_instances">
+                        <th scope="row">{index+1}</th>
+                        <td>{i.timestamp}</td>
+                        <td>{i.value}</td>
+                        <td>{i.note}</td>
+                        <td><a :href="'/update-tracker-instance/'+ i.sno+'?token={{token}}'" type="button"
+                                class="btn btn-outline-primary btn-sm">Update</a>
+                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                @click="deleteTrackerInstance(i)">Delete</button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+            <a href="/view-report/{{user.sno}}/{{tracker}}?token={{token}}" type="button"
+                class="btn btn-outline-info btn-sm">View
+                Report</a>
+            <a href="/download-csv/{{user.sno}}/{{tracker}}?token={{token}}" type="button"
+                class="btn btn-outline-warning btn-sm">Download
+                .csv</a>
+            <div style="width: 50%; margin-top: 5%; margin-bottom: 5%;" class="container mx-auto text-center">
+                <form action="/import-values/{{user.sno}}/{{tracker}}?token={{token}}" method="POST"
+                    enctype=multipart/form-data>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Add values from a file.</label>
+                        <input class="form-control" type="file" id="file" name="file">
+                        <button class="btn btn-outline-primary btn-sm" style="margin-top: 2%;">Upload</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
+
+{% endblock base %}
+
+{% block script %}
+<script type="text/javascript" src="{{ url_for('static', filename='script/main.js') }}">
+</script>
+{% endblock script %}

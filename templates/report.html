@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+
+{% block button %}
+<a href="/view-tracker/{{user.sno}}/{{max_instance.tracker}}?token={{token}}" class="btn btn-outline-dark btn-sm"
+    type="submit">Go
+    Back</a>
+{% endblock button %}
+
+
+
+{% block base %}
+
+<div style="margin-top: 5%;" class="container mx-auto text-center">
+    <h1>{{tracker}} Report</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 3%">
+        <div class="col">
+            <div class="card text-bg-dark h-100">
+                <div class="card-header" style="font-size: 25px;">Minimum</div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 18px">
+                        <b>Value</b>: {{min_instance.value}}
+                        <br>
+                        <b>Timestamp</b>: {{min_instance.timestamp}}
+                        <br>
+                        <b>Note</b>: {{min_instance.note}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-bg-dark h-100">
+                <div class="card-header" style="font-size: 25px;">Average</div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 18px">
+                        <b>Value</b>: {{avgval}}
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-bg-dark h-100">
+                <div class="card-header" style="font-size: 25px;">Maximum</div>
+                <div class="card-body">
+                    <p class="card-text" style="font-size: 18px">
+                        <b>Value</b>: {{max_instance.value}}
+                        <br>
+                        <b>Timestamp</b>: {{max_instance.timestamp}}
+                        <br>
+                        <b>Note</b>: {{max_instance.note}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="{{ url_for('static', filename=plot_filename) }}" alt="">
+
+
+</div>
+
+{% endblock base %}

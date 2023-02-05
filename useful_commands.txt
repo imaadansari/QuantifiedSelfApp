@@ -1,0 +1,3 @@
+source env/bin/activate
+celery -A app.celery worker --loglevel=info
+qpllhdubxlqzibgn

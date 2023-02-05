@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block button %}
+<a href="/view-tracker/{{user.sno}}/{{tracker_instance.tracker}}" class="btn btn-outline-dark btn-sm" type="submit">Go
+    Back</a>
+{% endblock button %}
+
+
+{% block base %}
+<div style="width: 50%; margin-top: 5%; margin-bottom: 5%;" class="container mx-auto text-center">
+    <form action="/update-tracker-instance/{{tracker_instance.sno}}?token={{token}}" method="POST">
+        <div style="width: 50%;"></div>
+        <h1>Update Values</h1>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="value" value="{{tracker_instance.value}}">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="note" value="{{tracker_instance.note}}">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="timestamp" value="{{tracker_instance.timestamp}}">
+        </div>
+
+        <button type="submit" class="btn btn-outline-success">Update</button>
+    </form>
+</div>
+{% endblock base %}

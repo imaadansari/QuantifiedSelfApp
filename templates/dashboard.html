@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block button %}
+<a href="/login" class="btn btn-outline-dark btn-sm" type="submit">Logout</a>
+{% endblock button %}
+
+{% block base %}
+
+<div style="margin-top: 5%;" class="container mx-auto text-center">
+    <h1 style="margin-bottom: 2%;">Welcome, {{user.user_id}}!</h1>
+
+    <div id="dashboard">
+
+        <div v-if="all_tracker_cards.length === 0">
+            <div class="alert alert-dark" role="alert">
+                No trackers to show add. Add Trackers now!
+            </div>
+        </div>
+
+        <div v-else>
+            <h1 style="margin-bottom: 5%;">What would you like to track?</h1>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+
+                <div class="col" v-for="(i, index) in all_tracker_cards">
+                    <div class="card h-100 text-bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">{i.tracker}</h5>
+                            <p class="card-text"></p>
+                            <a :href="'/view-tracker/{{user.sno}}/'+i.tracker+'?token={{token}}'"
+                                class="btn btn-primary">View</a>
+                            <button type="submit" @click="deleteTrackerCard(i)" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div style="width: 50%; margin-top: 5%; margin-bottom: 5%;" class="container mx-auto text-center">
+            <form @submit.prevent="createTrackerCard" method="POST">
+                <div style="width: 50%;"></div>
+                <div class="mb-3">
+                    <h1>Add Tracker</h1>
+                    <input type="text" class="form-control" id="tracker" name="tracker"
+                        placeholder="What would you like to track?" v-model="tracker_card.title">
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">Add</button>
+            </form>
+        </div>
+        {title}
+    </div>
+
+    {% endblock base %}
+
+    {% block script %}
+    <script type="text/javascript" src="{{ url_for('static', filename='script/dashboard.js') }}"></script>
+    {% endblock script %}
